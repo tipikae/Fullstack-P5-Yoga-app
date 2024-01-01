@@ -4,14 +4,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SessionService } from 'src/app/services/session.service';
 import { expect } from '@jest/globals';
 
 import { MeComponent } from './me.component';
 import { of } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
-import { Router } from '@angular/router';
 
 describe('MeComponent', () => {
   let component: MeComponent;
