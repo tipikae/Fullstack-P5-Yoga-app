@@ -16,8 +16,6 @@ import { SessionApiService } from '../../services/session-api.service';
 import { FormComponent } from './form.component';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
-import { SessionsRoutingModule } from '../../sessions-routing.module';
-import { AppRoutingModule } from 'src/app/app-routing.module';
 
 describe('FormComponent', () => {
   let component: FormComponent;

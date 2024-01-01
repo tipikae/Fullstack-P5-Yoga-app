@@ -2,7 +2,6 @@ import { TestBed } from '@angular/core/testing';
 import { expect } from '@jest/globals';
 
 import { SessionService } from './session.service';
-import { of } from 'rxjs';
 
 describe('SessionService', () => {
   let service: SessionService;
