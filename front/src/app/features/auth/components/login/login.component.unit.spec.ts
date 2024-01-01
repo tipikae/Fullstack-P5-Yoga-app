@@ -65,6 +65,11 @@ describe('LoginComponent', () => {
     component.form.controls.email.setValue('test@test.com');
     component.form.controls.password.setValue(null);
     expect(component.form.valid).toBeFalsy();
+
+    // password incorrect
+    component.form.controls.email.setValue('test@test.com');
+    component.form.controls.password.setValue('12');
+    expect(component.form.valid).toBeFalsy();
   });
 
   it(`form should be valid when fields are correct`, () => {
