@@ -25,10 +25,8 @@ describe('MeComponent', () => {
     logOut: jest.fn()
   }
 
-  const user = { id: 1, email: 'test@test.com', lastName: 'test', firstName: 'TEST', admin: true };
-
   const mockUserService = {
-    getById: jest.fn().mockReturnValue(of(user)),
+    getById: jest.fn().mockReturnValue(of({ id: 1, email: 'test@test.com', lastName: 'test', firstName: 'TEST', admin: true })),
     delete: jest.fn()
   }
 
