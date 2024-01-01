@@ -30,7 +30,9 @@ describe('DetailComponent', () => {
         ReactiveFormsModule
       ],
       declarations: [DetailComponent], 
-      providers: [{ provide: SessionService, useValue: mockSessionService }],
+      providers: [
+        { provide: SessionService, useValue: mockSessionService }
+      ],
     })
       .compileComponents();
       service = TestBed.inject(SessionService);
