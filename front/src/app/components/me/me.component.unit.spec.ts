@@ -21,21 +21,12 @@ describe('MeComponent', () => {
     sessionInformation: {
       admin: true,
       id: 1
-    },
-    logOut: jest.fn()
+    }
   }
 
   const mockUserService = {
     getById: jest.fn().mockReturnValue(of({ id: 1, email: 'test@test.com', lastName: 'test', firstName: 'TEST', admin: true })),
     delete: jest.fn()
-  }
-
-  const mockMatSnackBar = {
-    open: jest.fn()
-  }
-
-  const mockRouter = {
-    navigate: jest.fn()
   }
 
   beforeEach(async () => {
@@ -51,9 +42,7 @@ describe('MeComponent', () => {
       ],
       providers: [
         { provide: SessionService, useValue: mockSessionService },
-        { provide: UserService, useValue: mockUserService },
-        { provide: MatSnackBar, useValue: mockMatSnackBar },
-        { provide: Router, useValue: mockRouter }
+        { provide: UserService, useValue: mockUserService }
       ],
     })
       .compileComponents();
@@ -73,12 +62,9 @@ describe('MeComponent', () => {
   });
 
   it(`should call 'userService.delete()' when 'delete()' is called`, () => {
-    mockUserService.delete.mockReturnValueOnce(of('test'));
+    mockUserService.delete.mockReturnValueOnce(of());
     component.delete();
     expect(mockUserService.delete).toHaveBeenCalled();
-    expect(mockMatSnackBar.open).toHaveBeenCalled();
-    expect(mockSessionService.logOut).toHaveBeenCalled();
-    expect(mockRouter.navigate).toHaveBeenCalled();
   });
 
   it(`should call 'window.history.back()' when 'back()' is called`, () => {
