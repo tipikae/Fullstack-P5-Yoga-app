@@ -111,7 +111,6 @@ describe('MeComponent Integration Test Suites', () => {
 
     const request = controller.expectOne({ method: 'DELETE', url: 'api/user/' + sessionInformation.id });
     request.flush('OK');
-    fixture.detectChanges();
 
     sessionService.$isLogged().pipe(
       tap((isLogged) => {
