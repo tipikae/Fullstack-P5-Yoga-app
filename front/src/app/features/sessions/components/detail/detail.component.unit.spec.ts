@@ -45,7 +45,8 @@ describe('DetailComponent', () => {
       ],
     })
       .compileComponents();
-      service = TestBed.inject(SessionService);
+    
+    service = TestBed.inject(SessionService);
     fixture = TestBed.createComponent(DetailComponent);
     component = fixture.componentInstance;
     component.sessionId = '1';
