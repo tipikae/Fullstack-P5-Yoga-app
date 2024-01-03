@@ -6,7 +6,7 @@ import { HttpClientTestingModule, HttpTestingController } from "@angular/common/
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
 import { expect } from '@jest/globals';
-import { getAllByTestId, getByTestId, queryAllByTestId, queryByTestId } from "@testing-library/angular";
+import { getAllByTestId, queryAllByTestId, queryByTestId } from "@testing-library/angular";
 import '@testing-library/jest-dom';
 import { SessionInformation } from "src/app/interfaces/sessionInformation.interface";
 import { Session } from "../../interfaces/session.interface";
