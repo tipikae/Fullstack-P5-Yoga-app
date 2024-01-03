@@ -1,7 +1,7 @@
 import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { expect } from '@jest/globals';
-import { getAllByTestId, getByTestId, queryAllByTestId, queryByTestId } from "@testing-library/angular";
+import { getByTestId, queryByTestId } from "@testing-library/angular";
 import '@testing-library/jest-dom';
 import { SessionService } from "src/app/services/session.service";
 import { MatCardModule } from "@angular/material/card";
@@ -13,7 +13,7 @@ import { Session } from "../../interfaces/session.interface";
 import { RouterTestingModule } from "@angular/router/testing";
 import { TeacherService } from "src/app/services/teacher.service";
 import { FormBuilder } from "@angular/forms";
-import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 describe('DetailComponent IntegrationTest Suites', () => {
     let component: DetailComponent;
