@@ -10,6 +10,7 @@ import { getAllByTestId, queryAllByTestId, queryByTestId } from "@testing-librar
 import '@testing-library/jest-dom';
 import { SessionInformation } from "src/app/interfaces/sessionInformation.interface";
 import { Session } from "../../interfaces/session.interface";
+import { RouterTestingModule } from "@angular/router/testing";
 
 describe('ListComponent Integration Test Suites', () => {
     let component: ListComponent;
@@ -55,6 +56,7 @@ describe('ListComponent Integration Test Suites', () => {
             declarations: [ListComponent],
             imports: [
                 HttpClientTestingModule,
+                RouterTestingModule,
                 MatCardModule,
                 MatIconModule
             ],
