@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { expect } from '@jest/globals';
 import { getByTestId } from '@testing-library/angular';
 import '@testing-library/jest-dom';
+import { Router } from "@angular/router";
 
 describe('LoginComponent Integration Test Suites', () => {
     let component: LoginComponent;
@@ -20,6 +21,7 @@ describe('LoginComponent Integration Test Suites', () => {
     let authService: AuthService;
     let sessionService: SessionService;
     let controller: HttpTestingController;
+    let router: Router;
 
     const sessionInformation = {
         token: 'token',
@@ -53,6 +55,8 @@ describe('LoginComponent Integration Test Suites', () => {
         authService = TestBed.inject(AuthService);
         sessionService = TestBed.inject(SessionService);
         controller = TestBed.inject(HttpTestingController);
+        router = TestBed.inject(Router);
+        jest.spyOn(router, 'navigate').mockReturnValue(new Promise(() => {return true;}));
 
         fixture = TestBed.createComponent(LoginComponent);
         component = fixture.componentInstance;

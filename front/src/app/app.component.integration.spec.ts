@@ -5,14 +5,15 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { expect } from '@jest/globals';
 
 import { AppComponent } from './app.component';
-import { AuthService } from './features/auth/services/auth.service';
 import { SessionService } from './services/session.service';
 import { tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let app: AppComponent;
   let sessionService: SessionService;
+  let router: Router;
 
   const sessionInformation = {
     token: 'token',
@@ -27,7 +28,9 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
+        RouterTestingModule.withRoutes([
+          { path: '**', component: AppComponent }
+        ]),
         HttpClientModule,
         MatToolbarModule
       ],
@@ -38,6 +41,8 @@ describe('AppComponent', () => {
         SessionService
       ]
     }).compileComponents();
+
+    router = TestBed.inject(Router);
 
     fixture = TestBed.createComponent(AppComponent);
     app = fixture.componentInstance;
@@ -71,6 +76,7 @@ describe('AppComponent', () => {
   it(`should call 'sessionService.logOut()' when 'logout()' is called`, () => {
     sessionService  = TestBed.inject(SessionService);
     jest.spyOn(sessionService, 'logOut');
+    jest.spyOn(router, 'navigate').mockReturnValue(new Promise(() => { return true;}));
     app.logout();
     expect(sessionService.logOut).toHaveBeenCalled();
   });
