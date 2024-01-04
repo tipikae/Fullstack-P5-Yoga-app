@@ -14,12 +14,14 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { TeacherService } from "src/app/services/teacher.service";
 import { FormBuilder } from "@angular/forms";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { ActivatedRoute, Router } from "@angular/router";
 
 describe('DetailComponent IntegrationTest Suites', () => {
     let component: DetailComponent;
     let fixture: ComponentFixture<DetailComponent>;
     let controller: HttpTestingController;
     let sessionService: SessionService;
+    let sessionApiService: SessionApiService;
 
     const sessionInformation: SessionInformation = {
         token: 'token',
@@ -56,12 +58,14 @@ describe('DetailComponent IntegrationTest Suites', () => {
                 SessionService,
                 SessionApiService,
                 TeacherService,
-                FormBuilder
+                FormBuilder,
+                { provide: ActivatedRoute, useValue: { snapshot: { paramMap: { get: (id: number) => { return session.id } } } } }
             ]
         }).compileComponents();
 
         controller = TestBed.inject(HttpTestingController);
         sessionService = TestBed.inject(SessionService);
+        sessionApiService = TestBed.inject(SessionApiService);
 
         sessionService.logIn(sessionInformation);
 
@@ -83,5 +87,40 @@ describe('DetailComponent IntegrationTest Suites', () => {
     it(`should display 'delete' button when user is admin`, () => {
         expect(queryByTestId(document.body, 'admin-delete-btn')).toBeInTheDocument();
         expect(getByTestId(document.body, 'admin-delete-btn')).toHaveTextContent('Delete');
+    });
+
+    it(`should call 'sessionApiService.delete()' when 'delete()' is called`, () => {
+        jest.spyOn(sessionApiService, 'delete');
+
+        component.delete();
+
+        const request = controller.expectOne({ method: 'DELETE', url: 'api/session/' + session.id });
+        request.flush('');
+
+        expect(sessionApiService.delete).toHaveBeenCalledWith(session.id?.toString());
+    });
+
+    it(`should call 'sessionApiService.participate()' when 'participate()' is called`, () => {
+        jest.spyOn(sessionApiService, 'participate');
+
+        component.participate();
+
+        const request = controller.expectOne(
+            { method: 'POST', url: 'api/session/' + session.id + '/participate/' + sessionInformation.id });
+        request.flush('');
+
+        expect(sessionApiService.participate).toHaveBeenCalledWith(session.id?.toString(), sessionInformation.id?.toString());
+    });
+
+    it(`should call 'sessionApiService.unParticipate()' when 'unParticipate()' is called`, () => {
+        jest.spyOn(sessionApiService, 'unParticipate');
+
+        component.unParticipate();
+
+        const request = controller.expectOne(
+            { method: 'DELETE', url: 'api/session/' + session.id + '/participate/' + sessionInformation.id });
+        request.flush('');
+
+        expect(sessionApiService.unParticipate).toHaveBeenCalledWith(session.id?.toString(), sessionInformation.id?.toString());
     });
 });
