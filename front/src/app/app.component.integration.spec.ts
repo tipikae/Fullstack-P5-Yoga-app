@@ -43,6 +43,7 @@ describe('AppComponent', () => {
     }).compileComponents();
 
     router = TestBed.inject(Router);
+    sessionService = TestBed.inject(SessionService);
 
     fixture = TestBed.createComponent(AppComponent);
     app = fixture.componentInstance;
@@ -54,7 +55,6 @@ describe('AppComponent', () => {
   });
 
   it(`should return true when a user is logged in`, () => {
-    sessionService  = TestBed.inject(SessionService);
     sessionService.logIn(sessionInformation);
     app.$isLogged().pipe(
       tap((isLogged) => {
@@ -64,7 +64,6 @@ describe('AppComponent', () => {
   });
 
   it(`should return false when a user is logged out`, () => {
-    sessionService  = TestBed.inject(SessionService);
     sessionService.logOut();
     app.$isLogged().pipe(
       tap((isLogged) => {
@@ -74,7 +73,6 @@ describe('AppComponent', () => {
   });
 
   it(`should call 'sessionService.logOut()' when 'logout()' is called`, () => {
-    sessionService  = TestBed.inject(SessionService);
     jest.spyOn(sessionService, 'logOut');
     jest.spyOn(router, 'navigate').mockReturnValue(new Promise(() => { return true;}));
     app.logout();
