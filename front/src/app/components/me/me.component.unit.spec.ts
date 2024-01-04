@@ -6,8 +6,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SessionService } from 'src/app/services/session.service';
+import { expect } from '@jest/globals';
 
 import { MeComponent } from './me.component';
+import { of } from 'rxjs';
+import { UserService } from 'src/app/services/user.service';
 
 describe('MeComponent', () => {
   let component: MeComponent;
@@ -19,6 +22,12 @@ describe('MeComponent', () => {
       id: 1
     }
   }
+
+  const mockUserService = {
+    getById: jest.fn().mockReturnValue(of({ id: 1, email: 'test@test.com', lastName: 'test', firstName: 'TEST', admin: true })),
+    delete: jest.fn()
+  }
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [MeComponent],
@@ -30,7 +39,10 @@ describe('MeComponent', () => {
         MatIconModule,
         MatInputModule
       ],
-      providers: [{ provide: SessionService, useValue: mockSessionService }],
+      providers: [
+        { provide: SessionService, useValue: mockSessionService },
+        { provide: UserService, useValue: mockUserService }
+      ],
     })
       .compileComponents();
 
@@ -41,5 +53,22 @@ describe('MeComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should get user information', () => {
+    expect(mockUserService.getById).toHaveBeenCalled();
+    expect(component.user?.email).toBe('test@test.com');
+  });
+
+  it(`should call 'userService.delete()' when 'delete()' is called`, () => {
+    mockUserService.delete.mockReturnValueOnce(of());
+    component.delete();
+    expect(mockUserService.delete).toHaveBeenCalled();
+  });
+
+  it(`should call 'window.history.back()' when 'back()' is called`, () => {
+    jest.spyOn(window.history, 'back');
+    component.back();
+    expect(window.history.back).toHaveBeenCalled();
   });
 });
