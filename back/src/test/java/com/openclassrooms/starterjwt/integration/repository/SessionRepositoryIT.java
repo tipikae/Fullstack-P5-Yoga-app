@@ -13,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -62,5 +61,9 @@ public class SessionRepositoryIT {
         // delete
         sessionRepository.deleteById(sessionSaved.getId());
         assertFalse(sessionRepository.existsById(session.getId()));
+
+        // clear
+        userRepository.deleteById(user.getId());
+        teacherRepository.deleteById(teacher.getId());
     }
 }
