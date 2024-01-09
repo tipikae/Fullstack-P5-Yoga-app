@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class UserRepositoryIT {
+public class UserRepositoryITest {
 
     @Autowired
     private UserRepository userRepository;

@@ -17,7 +17,7 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class SessionRepositoryIT {
+public class SessionRepositoryITest {
 
     @Autowired
     private SessionRepository sessionRepository;
