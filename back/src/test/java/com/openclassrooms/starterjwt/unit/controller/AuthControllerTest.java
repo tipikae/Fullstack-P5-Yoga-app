@@ -111,6 +111,34 @@ public class AuthControllerTest {
                         .content("{\"email\": \"test@test.com\", \"password\": \"123456\"}"))
                 .andExpect(status().is(401));
     }
+
+    @Test
+    void registerReturns200AndMessageWhenUserNotAlreadyExists() throws Exception {
+        when(userRepository.existsByEmail(anyString())).thenReturn(false);
+        mockMvc.perform(post(ROOT + "/register")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{" +
+                        "\"email\": \"test@test.com\", " +
+                        "\"firstName\": \"user-firstname\", " +
+                        "\"lastName\": \"user-lastname\", " +
+                        "\"password\": \"123456\"}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.message", is("User registered successfully!")));
+    }
+
+    @Test
+    void registerReturns400AndMessageWhenUserAlreadyExists() throws Exception {
+        when(userRepository.existsByEmail(anyString())).thenReturn(true);
+        mockMvc.perform(post(ROOT + "/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{" +
+                                "\"email\": \"test@test.com\", " +
+                                "\"firstName\": \"user-firstname\", " +
+                                "\"lastName\": \"user-lastname\", " +
+                                "\"password\": \"123456\"}"))
+                .andExpect(status().is(400))
+                .andExpect(jsonPath("$.message", is("Error: Email is already taken!")));
+    }
 }
 
 class MyAthenticationException extends AuthenticationException {
