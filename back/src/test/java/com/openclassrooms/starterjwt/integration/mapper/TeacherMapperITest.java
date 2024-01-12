@@ -23,14 +23,18 @@ public class TeacherMapperITest {
     @Test
     void test() {
         Teacher teacher = new Teacher(1L, "teacher-lastname", "teacher-firstname", LocalDateTime.now(), null);
+        // toDto
         TeacherDto teacherDto = teacherMapper.toDto(teacher);
         assertEquals(teacher.getId(), teacherDto.getId());
+        // toEntity
         assertEquals(teacherDto.getLastName(), teacherMapper.toEntity(teacherDto).getLastName());
 
         List<Teacher> teachers = Arrays.asList(teacher);
+        // toDto
         List<TeacherDto> teacherDtos = teacherMapper.toDto(teachers);
         assertTrue(teacherDtos.size() == 1);
         assertEquals(teachers.get(0).getFirstName(), teacherDtos.get(0).getFirstName());
+        // toEntity
         assertTrue(teacherMapper.toEntity(teacherDtos).size() == 1);
         assertEquals(teacherDtos.get(0).getCreatedAt(), teacherMapper.toEntity(teacherDtos).get(0).getCreatedAt());
     }
