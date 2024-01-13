@@ -1,72 +1,88 @@
-# Yoga
+# Yoga App !
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0.
+Yoga is a booking platform for Yoga sessions.
 
-## Start the project
+This is the Yoga app front-end.
 
-Git clone:
+## Prerequisites
 
-> git clone https://github.com/OpenClassrooms-Student-Center/P5-Full-Stack-testing
+Angular 14.2.0
 
-Go inside folder:
+Node 16.20.2
 
-> cd yoga
+Npm 8.19.4
 
-Install dependencies:
+## Installation
 
-> npm install
+First install a node version manager like [nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
 
-Launch Front-end:
+Execute `nvm install 16.20.2` to install Node and npm.
 
-> npm run start;
+Execute `npm install -g @angular/14.2.0` to install Angular.
 
+Run `npm install` to install all the dependencies.
 
-## Ressources
+## Tests
 
-### Mockoon env 
+### Unitary and Integration Tests
 
-### Postman collection
+Execute `npm run test` to launch unit and integration tests.
 
-For Postman import the collection
+Tests report with code coverage is available at `coverage/jest/lcov-report/index.html`.
 
-> ressources/postman/yoga.postman_collection.json 
+### E2E Tests
 
-by following the documentation: 
+Execute `npm run e2e` to launch the e2e tests.
 
-https://learning.postman.com/docs/getting-started/importing-and-exporting-data/#importing-data-into-postman
+Select a browser and run ONLY `all.cy.ts` file in order to launch all the tests in one time and get the global code coverage (run another test file will erase the previous code coverage data).
 
+Then execute `npm run e2e:coverage` to calculate the code coverage.
 
-### MySQL
+Tests report with code coverage is available at `coverage/lcov-report/index.html`.
 
-SQL script for creating the schema is available `ressources/sql/script.sql`
+# Run
 
-By default the admin account is:
-- login: yoga@studio.com
-- password: test!1234
+To run the app in dev mode, execute `npm run start`.
 
+In a browser go to `http://localhost:4200` to use the app (start the back-end before !).
 
-### Test
+# Folder structure
 
-#### E2E
+```bash
+├── cypress
+│   ├── downloads
+│   ├── e2e
+│   ├── plugins
+│   ├── screenshots
+│   └── support
+└── src
+    ├── app
+    │   ├── components
+    │   │   ├── me
+    │   │   └── not-found
+    │   ├── features
+    │   │   ├── auth
+    │   │   │   ├── components
+    │   │   │   │   ├── login
+    │   │   │   │   └── register
+    │   │   │   ├── interfaces
+    │   │   │   └── services
+    │   │   └── sessions
+    │   │       ├── components
+    │   │       │   ├── detail
+    │   │       │   ├── form
+    │   │       │   └── list
+    │   │       ├── interfaces
+    │   │       └── services
+    │   ├── guards
+    │   ├── interceptors
+    │   ├── interfaces
+    │   └── services
+    ├── assets
+    └── environments
 
-Launching e2e test:
+```
 
-> npm run e2e
+# Author
 
-Generate coverage report (you should launch e2e test before):
-
-> npm run e2e:coverage
-
-Report is available here:
-
-> front/coverage/lcov-report/index.html
-
-#### Unitary test
-
-Launching test:
-
-> npm run test
-
-for following change:
-
-> npm run test:watch
+Gilles BERNARD (@tipikae)
